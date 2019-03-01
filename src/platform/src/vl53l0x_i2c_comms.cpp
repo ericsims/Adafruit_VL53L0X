@@ -10,7 +10,7 @@ int VL53L0X_i2c_init() {
 }
 
 int VL53L0X_write_multi(uint8_t deviceAddress, uint8_t index, uint8_t *pdata, uint32_t count) {
-  i2c_start(deviceAddress<<1)
+  i2c_start(deviceAddress<<1);
   i2c_write(index);
 #ifdef I2C_DEBUG
   Serial.print("\tWriting "); Serial.print(count); Serial.print(" to addr 0x"); Serial.print(index, HEX); Serial.print(": ");
@@ -30,10 +30,10 @@ int VL53L0X_write_multi(uint8_t deviceAddress, uint8_t index, uint8_t *pdata, ui
 }
 
 int VL53L0X_read_multi(uint8_t deviceAddress, uint8_t index, uint8_t *pdata, uint32_t count) {
-  i2c_start(deviceAddress<<1)
+  i2c_start(deviceAddress<<1);
   i2c_write(index);
   i2c_stop();
-  i2c_start(address<<1 | 1);
+  i2c_start(deviceAddress<<1 | 1);
 #ifdef I2C_DEBUG
   Serial.print("\tReading "); Serial.print(count); Serial.print(" from addr 0x"); Serial.print(index, HEX); Serial.print(": ");
 #endif

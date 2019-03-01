@@ -1,4 +1,5 @@
 // initialize I2C
+#include <stdint.h>
 int VL53L0X_i2c_init();
 int VL53L0X_write_multi(uint8_t deviceAddress, uint8_t index, uint8_t *pdata, uint32_t count);
 int VL53L0X_read_multi(uint8_t deviceAddress, uint8_t index, uint8_t *pdata, uint32_t count);

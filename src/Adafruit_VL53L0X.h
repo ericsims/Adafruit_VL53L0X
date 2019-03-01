@@ -19,6 +19,7 @@
 #ifndef ADAFRUIT_VL53L0X_H
 #define ADAFRUIT_VL53L0X_H
 
+#include <stdint.h>
 #include "I2C-master-lib/i2c_master.h"
 #include "vl53l0x_api.h"
 

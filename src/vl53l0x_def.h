@@ -37,6 +37,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef _VL53L0X_DEF_H_
 #define _VL53L0X_DEF_H_
 
+#include <stdint.h>
 
 #ifdef __cplusplus
 extern "C" {

@@ -47,7 +47,7 @@
     @returns True if device is set up, false on any failure
 */
 /**************************************************************************/
-boolean Adafruit_VL53L0X::begin(uint8_t i2c_addr, boolean debug) {
+bool Adafruit_VL53L0X::begin(uint8_t i2c_addr, bool debug) {
   int32_t   status_int;
   int32_t   init_done         = 0;
 
@@ -66,8 +66,8 @@ boolean Adafruit_VL53L0X::begin(uint8_t i2c_addr, boolean debug) {
       VL53L0X_IMPLEMENTATION_VER_MINOR != VERSION_REQUIRED_MINOR ||
       VL53L0X_IMPLEMENTATION_VER_SUB != VERSION_REQUIRED_BUILD )  {
       if( debug ) {
-          Serial.println( F( "Found " STR(VL53L0X_IMPLEMENTATION_VER_MAJOR) "." STR(VL53L0X_IMPLEMENTATION_VER_MINOR) "."  STR(VL53L0X_IMPLEMENTATION_VER_SUB) " rev " STR(VL53L0X_IMPLEMENTATION_VER_REVISION) ) );
-          Serial.println( F( "Requires " STR(VERSION_REQUIRED_MAJOR) "." STR(VERSION_REQUIRED_MINOR) "." STR(VERSION_REQUIRED_BUILD) ) );
+          //Serial.println( F( "Found " STR(VL53L0X_IMPLEMENTATION_VER_MAJOR) "." STR(VL53L0X_IMPLEMENTATION_VER_MINOR) "."  STR(VL53L0X_IMPLEMENTATION_VER_SUB) " rev " STR(VL53L0X_IMPLEMENTATION_VER_REVISION) ) );
+          //Serial.println( F( "Requires " STR(VERSION_REQUIRED_MAJOR) "." STR(VERSION_REQUIRED_MINOR) "." STR(VERSION_REQUIRED_BUILD) ) );
       }
 
       Status = VL53L0X_ERROR_NOT_SUPPORTED;
@@ -85,21 +85,21 @@ boolean Adafruit_VL53L0X::begin(uint8_t i2c_addr, boolean debug) {
 
   if( Status == VL53L0X_ERROR_NONE )  {
       if( debug ) {
-         Serial.println( F( "VL53L0X Info:" ) );
+         /*Serial.println( F( "VL53L0X Info:" ) );
          Serial.print( F( "Device Name: ")  ); Serial.print( DeviceInfo.Name );
          Serial.print( F( ", Type: " ) ); Serial.print( DeviceInfo.Type );
          Serial.print( F( ", ID: " ) ); Serial.println( DeviceInfo.ProductId );
 
          Serial.print( F( "Rev Major: " ) ); Serial.print( DeviceInfo.ProductRevisionMajor );
-         Serial.print( F( ", Minor: " ) ); Serial.println( DeviceInfo.ProductRevisionMinor );
+         Serial.print( F( ", Minor: " ) ); Serial.println( DeviceInfo.ProductRevisionMinor );*/
       }
 
       if( ( DeviceInfo.ProductRevisionMinor != 1 ) && ( DeviceInfo.ProductRevisionMinor != 1 ) ) {
           if( debug ) {
-              Serial.print( F( "Error expected cut 1.1 but found " ) );
+              /*Serial.print( F( "Error expected cut 1.1 but found " ) );
               Serial.print( DeviceInfo.ProductRevisionMajor );
               Serial.print( ',' );
-              Serial.println( DeviceInfo.ProductRevisionMinor );
+              Serial.println( DeviceInfo.ProductRevisionMinor );*/
           }
 
           Status = VL53L0X_ERROR_NOT_SUPPORTED;
@@ -108,7 +108,7 @@ boolean Adafruit_VL53L0X::begin(uint8_t i2c_addr, boolean debug) {
 
   if( Status == VL53L0X_ERROR_NONE ) {
       if( debug ) {
-          Serial.println( F( "VL53L0X: StaticInit" ) );
+          //Serial.println( F( "VL53L0X: StaticInit" ) );
       }
 
       Status = VL53L0X_StaticInit( pMyDevice ); // Device Initialization
@@ -116,22 +116,22 @@ boolean Adafruit_VL53L0X::begin(uint8_t i2c_addr, boolean debug) {
 
   if( Status == VL53L0X_ERROR_NONE ) {
       if( debug ) {
-          Serial.println( F( "VL53L0X: PerformRefSpadManagement" ) );
+          //Serial.println( F( "VL53L0X: PerformRefSpadManagement" ) );
       }
 
       Status = VL53L0X_PerformRefSpadManagement( pMyDevice, &refSpadCount, &isApertureSpads ); // Device Initialization
 
       if( debug ) {
-          Serial.print( F( "refSpadCount = " ) );
+          /*Serial.print( F( "refSpadCount = " ) );
           Serial.print( refSpadCount );
           Serial.print( F( ", isApertureSpads = " ) );
-          Serial.println( isApertureSpads );
+          Serial.println( isApertureSpads );*/
       }
   }
 
   if( Status == VL53L0X_ERROR_NONE ) {
       if( debug ) {
-          Serial.println( F( "VL53L0X: PerformRefCalibration" ) );
+          //Serial.println( F( "VL53L0X: PerformRefCalibration" ) );
       }
 
       Status = VL53L0X_PerformRefCalibration( pMyDevice, &VhvSettings, &PhaseCal );           // Device Initialization
@@ -140,7 +140,7 @@ boolean Adafruit_VL53L0X::begin(uint8_t i2c_addr, boolean debug) {
   if( Status == VL53L0X_ERROR_NONE ) {
       // no need to do this when we use VL53L0X_PerformSingleRangingMeasurement
       if( debug ) {
-          Serial.println( F( "VL53L0X: SetDeviceMode" ) );
+          //Serial.println( F( "VL53L0X: SetDeviceMode" ) );
       }
 
       Status = VL53L0X_SetDeviceMode( pMyDevice, VL53L0X_DEVICEMODE_SINGLE_RANGING );        // Setup in single ranging mode
@@ -167,8 +167,8 @@ boolean Adafruit_VL53L0X::begin(uint8_t i2c_addr, boolean debug) {
       return true;
   } else {
       if( debug ) {
-          Serial.print( F( "VL53L0X Error: " ) );
-          Serial.println( Status );
+          //Serial.print( F( "VL53L0X Error: " ) );
+          //Serial.println( Status );
       }
 
       return false;
@@ -182,12 +182,12 @@ boolean Adafruit_VL53L0X::begin(uint8_t i2c_addr, boolean debug) {
     @returns True if address was set successfully, False otherwise
 */
 /**************************************************************************/
-boolean Adafruit_VL53L0X::setAddress(uint8_t newAddr) {
+bool Adafruit_VL53L0X::setAddress(uint8_t newAddr) {
   newAddr &= 0x7F;
 
   Status = VL53L0X_SetDeviceAddress(pMyDevice, newAddr * 2); // 7->8 bit
 
-  delay(10);
+  //delay(10);
 
   if( Status == VL53L0X_ERROR_NONE ) {
     pMyDevice->I2cDevAddr = newAddr;  // 7 bit addr
@@ -204,7 +204,7 @@ boolean Adafruit_VL53L0X::setAddress(uint8_t newAddr) {
     @returns True if address was set successfully, False otherwise
 */
 /**************************************************************************/
-VL53L0X_Error Adafruit_VL53L0X::getSingleRangingMeasurement( VL53L0X_RangingMeasurementData_t *RangingMeasurementData, boolean debug )
+VL53L0X_Error Adafruit_VL53L0X::getSingleRangingMeasurement( VL53L0X_RangingMeasurementData_t *RangingMeasurementData, bool debug )
 {
     VL53L0X_Error   Status = VL53L0X_ERROR_NONE;
     FixPoint1616_t  LimitCheckCurrent;
@@ -216,7 +216,7 @@ VL53L0X_Error Adafruit_VL53L0X::getSingleRangingMeasurement( VL53L0X_RangingMeas
 
     if( Status == VL53L0X_ERROR_NONE ) {
         if( debug ) {
-            Serial.println( F( "sVL53L0X: PerformSingleRangingMeasurement" ) );
+            //Serial.println( F( "sVL53L0X: PerformSingleRangingMeasurement" ) );
         }
         Status = VL53L0X_PerformSingleRangingMeasurement( pMyDevice, RangingMeasurementData );
 
@@ -227,11 +227,11 @@ VL53L0X_Error Adafruit_VL53L0X::getSingleRangingMeasurement( VL53L0X_RangingMeas
         if( debug ) {
             VL53L0X_GetLimitCheckCurrent( pMyDevice, VL53L0X_CHECKENABLE_RANGE_IGNORE_THRESHOLD, &LimitCheckCurrent );
 
-          	Serial.print( F( "RANGE IGNORE THRESHOLD: " ) );
-          	Serial.println( (float)LimitCheckCurrent / 65536.0 );
-
-          	Serial.print( F( "Measured distance: " ) );
-          	Serial.println( RangingMeasurementData->RangeMilliMeter );
+//           	Serial.print( F( "RANGE IGNORE THRESHOLD: " ) );
+//           	Serial.println( (float)LimitCheckCurrent / 65536.0 );
+// 
+//           	Serial.print( F( "Measured distance: " ) );
+//           	Serial.println( RangingMeasurementData->RangeMilliMeter );
         }
     }
 
@@ -259,9 +259,9 @@ void Adafruit_VL53L0X::printRangeStatus( VL53L0X_RangingMeasurementData_t* pRang
 
     VL53L0X_GetRangeStatusString( RangeStatus, buf );
 
-    Serial.print( F("Range Status: " ) );
-    Serial.print( RangeStatus );
-    Serial.print( F( " : " ) );
-    Serial.println( buf );
+//     Serial.print( F("Range Status: " ) );
+//     Serial.print( RangeStatus );
+//     Serial.print( F( " : " ) );
+//     Serial.println( buf );
 
 }
