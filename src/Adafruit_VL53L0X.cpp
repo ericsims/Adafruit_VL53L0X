@@ -62,7 +62,7 @@ bool Adafruit_VL53L0X::begin(uint8_t i2c_addr, bool debug) {
   pMyDevice->comms_speed_khz =  400;
 
   // unclear if this is even needed:
-  if( VL53L0X_IMPLEMENTATION_VER_MAJOR != VERSION_REQUIRED_MAJOR ||
+  /*if( VL53L0X_IMPLEMENTATION_VER_MAJOR != VERSION_REQUIRED_MAJOR ||
       VL53L0X_IMPLEMENTATION_VER_MINOR != VERSION_REQUIRED_MINOR ||
       VL53L0X_IMPLEMENTATION_VER_SUB != VERSION_REQUIRED_BUILD )  {
       if( debug ) {
@@ -73,78 +73,32 @@ bool Adafruit_VL53L0X::begin(uint8_t i2c_addr, bool debug) {
       Status = VL53L0X_ERROR_NOT_SUPPORTED;
 
       return false;
-  }
+  }*/
 
   Status = VL53L0X_DataInit( &MyDevice );         // Data initialization
 
-  if (! setAddress(i2c_addr) ) {
+  /*if (! setAddress(i2c_addr) ) {
     return false;
-  }
+  }*/
 
-  Status = VL53L0X_GetDeviceInfo( &MyDevice, &DeviceInfo );
+  /*Status = VL53L0X_GetDeviceInfo( &MyDevice, &DeviceInfo );
 
-  if( Status == VL53L0X_ERROR_NONE )  {
-      if( debug ) {
-         /*Serial.println( F( "VL53L0X Info:" ) );
-         Serial.print( F( "Device Name: ")  ); Serial.print( DeviceInfo.Name );
-         Serial.print( F( ", Type: " ) ); Serial.print( DeviceInfo.Type );
-         Serial.print( F( ", ID: " ) ); Serial.println( DeviceInfo.ProductId );
-
-         Serial.print( F( "Rev Major: " ) ); Serial.print( DeviceInfo.ProductRevisionMajor );
-         Serial.print( F( ", Minor: " ) ); Serial.println( DeviceInfo.ProductRevisionMinor );*/
-      }
-
-      if( ( DeviceInfo.ProductRevisionMinor != 1 ) && ( DeviceInfo.ProductRevisionMinor != 1 ) ) {
-          if( debug ) {
-              /*Serial.print( F( "Error expected cut 1.1 but found " ) );
-              Serial.print( DeviceInfo.ProductRevisionMajor );
-              Serial.print( ',' );
-              Serial.println( DeviceInfo.ProductRevisionMinor );*/
-          }
-
-          Status = VL53L0X_ERROR_NOT_SUPPORTED;
-      }
-  }
-
+*/
   if( Status == VL53L0X_ERROR_NONE ) {
-      if( debug ) {
-          //Serial.println( F( "VL53L0X: StaticInit" ) );
-      }
-
       Status = VL53L0X_StaticInit( pMyDevice ); // Device Initialization
   }
 
   if( Status == VL53L0X_ERROR_NONE ) {
-      if( debug ) {
-          //Serial.println( F( "VL53L0X: PerformRefSpadManagement" ) );
-      }
-
       Status = VL53L0X_PerformRefSpadManagement( pMyDevice, &refSpadCount, &isApertureSpads ); // Device Initialization
-
-      if( debug ) {
-          /*Serial.print( F( "refSpadCount = " ) );
-          Serial.print( refSpadCount );
-          Serial.print( F( ", isApertureSpads = " ) );
-          Serial.println( isApertureSpads );*/
-      }
   }
 
   if( Status == VL53L0X_ERROR_NONE ) {
-      if( debug ) {
-          //Serial.println( F( "VL53L0X: PerformRefCalibration" ) );
-      }
-
       Status = VL53L0X_PerformRefCalibration( pMyDevice, &VhvSettings, &PhaseCal );           // Device Initialization
   }
 
-  if( Status == VL53L0X_ERROR_NONE ) {
-      // no need to do this when we use VL53L0X_PerformSingleRangingMeasurement
-      if( debug ) {
-          //Serial.println( F( "VL53L0X: SetDeviceMode" ) );
-      }
-
+  /*if( Status == VL53L0X_ERROR_NONE ) {
       Status = VL53L0X_SetDeviceMode( pMyDevice, VL53L0X_DEVICEMODE_SINGLE_RANGING );        // Setup in single ranging mode
-  }
+  }*/
 
   // Enable/Disable Sigma and Signal check
   if( Status == VL53L0X_ERROR_NONE ) {
@@ -229,7 +183,7 @@ VL53L0X_Error Adafruit_VL53L0X::getSingleRangingMeasurement( VL53L0X_RangingMeas
 
 //           	Serial.print( F( "RANGE IGNORE THRESHOLD: " ) );
 //           	Serial.println( (float)LimitCheckCurrent / 65536.0 );
-// 
+//
 //           	Serial.print( F( "Measured distance: " ) );
 //           	Serial.println( RangingMeasurementData->RangeMilliMeter );
         }
