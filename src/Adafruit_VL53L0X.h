@@ -32,8 +32,8 @@
 class Adafruit_VL53L0X
 {
   public:
-    boolean       begin(uint8_t i2c_addr = VL53L0X_I2C_ADDR, boolean debug = false);
-    boolean       setAddress(uint8_t newAddr);
+    bool       begin(uint8_t i2c_addr = VL53L0X_I2C_ADDR, bool debug = false);
+    bool       setAddress(uint8_t newAddr);
 
     /**************************************************************************/
     /*!
@@ -45,10 +45,10 @@ class Adafruit_VL53L0X
     /**************************************************************************/
     VL53L0X_Error
       rangingTest(VL53L0X_RangingMeasurementData_t* pRangingMeasurementData,
-		  boolean debug = false)
+		  bool debug = false)
     { return getSingleRangingMeasurement(pRangingMeasurementData, debug); };
 
-    VL53L0X_Error getSingleRangingMeasurement( VL53L0X_RangingMeasurementData_t* pRangingMeasurementData, boolean debug = false );
+    VL53L0X_Error getSingleRangingMeasurement( VL53L0X_RangingMeasurementData_t* pRangingMeasurementData, bool debug = false );
     void          printRangeStatus( VL53L0X_RangingMeasurementData_t* pRangingMeasurementData );
 
     VL53L0X_Error                     Status      = VL53L0X_ERROR_NONE; ///< indicates whether or not the sensor has encountered an error
