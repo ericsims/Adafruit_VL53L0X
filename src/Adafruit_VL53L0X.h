@@ -20,7 +20,9 @@
 #define ADAFRUIT_VL53L0X_H
 
 #include <stdint.h>
+#ifndef I2C_MASTER_H
 #include "I2C-master-lib/i2c_master.h"
+#endif
 #include "vl53l0x_api.h"
 
 #define VL53L0X_I2C_ADDR  0x29 ///< Default sensor I2C address
